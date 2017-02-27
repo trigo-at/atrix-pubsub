@@ -8,15 +8,16 @@ services:
     image: trigo/atrix-worker:latest
     command: 'yarn run test'
     environment:
+      - TEST_REDIS=redis
       - ATRIX_WORKER_DATASOURCE_M1_CONFIG_REDIS_HOST=redis
-      - ATRIX_WORKER_DATASOURCE_M1_CONFIG_QUEUE_NAME=worker-test
+      - ATRIX_WORKER_DATASOURCE_M1_CONFIG_QUEUENAME=worker-test
       - NODE_ENV=test
       - NPM_TOKEN
       - I_WANT_TEST_LOGGING=1
     networks:
       - atrix-worker_test
     depends_on:
-      - worker
+      - redis
 
   redis:
     image: redis
