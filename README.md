@@ -15,9 +15,40 @@
 # install atrix
 npm install -S @trigo/atrix
 
-# install elasticsearch plugin
+# install worker plugin
 npm install -S @trigo/atrix-worker
 
 ```
 
+## Configuration
 
+### index.js
+```javascript
+'use strict';
+
+const atrix = require('@trigo/atrix');
+const path = require('path');
+
+atrix.addService(new atrix.Service('worker', {
+	// datasource configuration
+	dataSource: {
+		m1: {
+		  // set tyoe to 'worker' to use plugin fot the connection
+			type: 'worker',
+			config: {
+			  // redis configuration
+				redis: {
+					host: 'localhost',
+					port: 6379,
+				},
+				// name of the queue to use to queue the jobs
+				queueName: 'atrix-worker-test',
+				
+				// directory containing the handler files
+				handlerDir: path.join(__dirname, './handlers'),
+			},
+		},
+	},
+}));
+
+```
