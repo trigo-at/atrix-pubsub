@@ -1,0 +1,28 @@
+version: '2'
+services:
+  atrix-worker:
+    build:
+      context: .
+      args:
+        - NPM_TOKEN=${NPM_TOKEN}
+    image: trigo/atrix-worker:latest
+    command: 'yarn run test'
+    environment:
+      - ATRIX_WORKER_DATASOURCE_M1_CONFIG_REDIS_HOST=redis
+      - ATRIX_WORKER_DATASOURCE_M1_CONFIG_QUEUE_NAME=worker-test
+      - NODE_ENV=test
+      - NPM_TOKEN
+      - I_WANT_TEST_LOGGING=1
+    networks:
+      - atrix-worker_test
+    depends_on:
+      - worker
+
+  redis:
+    image: redis
+    networks:
+      - atrix-worker_test
+
+networks:
+  atrix-worker_test:
+    driver: bridge

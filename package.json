@@ -1,0 +1,45 @@
+{
+  "name": "@trigo/atrix-worker",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "description": "Worker intigration into atrix microservice framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --timeout 30000 --trace-warnings $(find . -name '*.specs.js' -not -path './node_modules/*')",
+    "lint": "eslint lib specs",
+    "yarn": "yarn install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trigo-at/atrix-worker.git"
+  },
+  "author": "Christian Hubinger <christian@trigo.at>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trigo-at/atrix-worker/issues"
+  },
+  "homepage": "https://github.com/trigo-at/atrix-worker#readme",
+  "devDependencies": {
+    "@trigo/atrix": "^0.5.1",
+    "@trigo/eslint-config-trigo": "^3.2.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-mocha": "^4.8.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "async-retry": "^0.3.0",
+    "bluebird": "^3.4.7",
+    "bull": "^2.1.2",
+    "ioredis": "^2.5.0",
+    "joi": "^10.2.2",
+    "ramda": "^0.23.0",
+    "uuid": "^3.0.1"
+  }
+}
