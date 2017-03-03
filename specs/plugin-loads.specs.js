@@ -8,8 +8,5 @@ require('./service');
 const atrix = require('@trigo/atrix');
 
 describe('loads datasources into service', () => {
-	it('dataSources is populated with configs', async () => {
-		expect(atrix.services.worker.dataSources.m1).to.be.an('object');
-	});
 });
 

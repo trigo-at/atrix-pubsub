@@ -1,6 +1,6 @@
 [![NSP Status](https://nodesecurity.io/orgs/trigo-gmbh/projects/da4bbc29-c02c-4cbb-a25f-33ba471797cf/badge)](https://nodesecurity.io/orgs/trigo-gmbh/projects/da4bbc29-c02c-4cbb-a25f-33ba471797cf)
 
-# atrix-worker
+# atrix-pubsub
 
 **Redis/bull based job queue and handler intigraition into atrix microservice framework**
 
@@ -15,8 +15,8 @@
 # install atrix
 npm install -S @trigo/atrix
 
-# install worker plugin
-npm install -S @trigo/atrix-worker
+# install pubsub plugin
+npm install -S @trigo/atrix-pubsub
 
 ```
 
@@ -29,12 +29,12 @@ npm install -S @trigo/atrix-worker
 const atrix = require('@trigo/atrix');
 const path = require('path');
 
-atrix.addService(new atrix.Service('worker', {
+atrix.addService(new atrix.Service('pubsub', {
 	// datasource configuration
 	dataSource: {
 		m1: {
-		  // set tyoe to 'worker' to use plugin fot the connection
-			type: 'worker',
+		  // set tyoe to 'pubsub' to use plugin fot the connection
+			type: 'pubsub',
 			config: {
 			  // redis configuration
 				redis: {
@@ -42,7 +42,7 @@ atrix.addService(new atrix.Service('worker', {
 					port: 6379,
 				},
 				// name of the queue to use to queue the jobs
-				queueName: 'atrix-worker-test',
+				queueName: 'atrix-pubsub-test',
 				
 				// directory containing the handler files
 				handlerDir: path.join(__dirname, './handlers'),

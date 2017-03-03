@@ -1,10 +1,10 @@
 {
-  "name": "@trigo/atrix-worker",
-  "version": "0.2.0",
+  "name": "@trigo/atrix-pubsub",
+  "version": "0.0.0",
   "engines": {
     "node": ">=7.6.0"
   },
-  "description": "Worker intigration into atrix microservice framework",
+  "description": "Pubsub intigration into atrix microservice framework",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --timeout 30000 --trace-warnings $(find . -name '*.specs.js' -not -path './node_modules/*')",
@@ -13,16 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trigo-at/atrix-worker.git"
+    "url": "git+https://github.com/trigo-at/atrix-pubsub.git"
   },
   "author": "Christian Hubinger <christian@trigo.at>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/trigo-at/atrix-worker/issues"
+    "url": "https://github.com/trigo-at/atrix-pubsub/issues"
   },
-  "homepage": "https://github.com/trigo-at/atrix-worker#readme",
+  "homepage": "https://github.com/trigo-at/atrix-pubsub#readme",
   "devDependencies": {
-    "@trigo/atrix": "^0.5.1",
+    "@trigo/atrix": "^0.5.2",
     "@trigo/eslint-config-trigo": "^3.2.0",
     "chai": "^3.5.0",
     "eslint": "^3.15.0",
@@ -34,12 +34,12 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "ascoltatori": "^4.0.0",
     "async-retry": "^0.3.0",
     "bluebird": "^3.4.7",
-    "bull": "^2.1.2",
-    "ioredis": "^2.5.0",
     "joi": "^10.2.2",
     "ramda": "^0.23.0",
+    "redis": "^2.6.5",
     "uuid": "^3.0.1"
   }
 }

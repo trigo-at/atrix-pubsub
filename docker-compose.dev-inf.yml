@@ -3,10 +3,10 @@ services:
   redis:
     image: redis
     networks:
-      - atrix-worker_test
+      - atrix-pubsub_test
     ports:
       - 6379:6379
 
 networks:
-  atrix-worker_test:
+  atrix-pubsub_test:
     driver: bridge
