@@ -28,13 +28,16 @@ const Joi = require('joi');
 
 module.exports.descrioption = 'my fancy event handler'
 module.exports.schema = joi.object({ ... });
-module.exports.handler = (req, reply, server) => {
+module.exports.handler = async (req, reply, service) => {
 	console.log(req) 
 	// { 
 	//	path: 'my/fanzy/event', 
 	//	payload: { an: 'event', with: { da: 'ta' } }
 	// 	log: {<logger object>} 
 	// }
+	
+	// publish anohter message
+	await service.publish('other/event', { ... });
 }
 ```
 
