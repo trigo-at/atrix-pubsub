@@ -2,6 +2,8 @@
 
 # atrix-pubsub
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/trigo-at/atrix-pubsub.svg?token=12b9856af729a71435d009990f1d05384c981f72e2990e2416f280f4fd5249fd)](https://greenkeeper.io/)
+
 **Acoltatori based Pub/Sub intigraition into atrix microservice framework**
 
 ## Features
