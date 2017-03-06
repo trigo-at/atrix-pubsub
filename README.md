@@ -2,7 +2,7 @@
 
 # atrix-pubsub
 
-**Redis/bull based job queue and handler intigraition into atrix microservice framework**
+**Acoltatori based Pub/Sub intigraition into atrix microservice framework**
 
 ## Features
 
@@ -22,6 +22,22 @@ npm install -S @trigo/atrix-pubsub
 
 ## Configuration
 
+### handlers/my/facncy^*.js
+```
+const Joi = require('joi');
+
+module.exports.descrioption = 'my fancy event handler'
+module.exports.schema = joi.object({ ... });
+module.exports.handler = (req, reply, server) => {
+	console.log(req) 
+	// { 
+	//	path: 'my/fanzy/event', 
+	//	payload: { an: 'event', with: { da: 'ta' } }
+	// 	log: {<logger object>} 
+	// }
+}
+```
+
 ### index.js
 ```javascript
 'use strict';
@@ -30,25 +46,24 @@ const atrix = require('@trigo/atrix');
 const path = require('path');
 
 atrix.addService(new atrix.Service('pubsub', {
-	// datasource configuration
-	dataSource: {
-		m1: {
-		  // set tyoe to 'pubsub' to use plugin fot the connection
-			type: 'pubsub',
-			config: {
-			  // redis configuration
-				redis: {
-					host: 'localhost',
-					port: 6379,
-				},
-				// name of the queue to use to queue the jobs
-				queueName: 'atrix-pubsub-test',
-				
-				// directory containing the handler files
-				handlerDir: path.join(__dirname, './handlers'),
-			},
+	// plugin configuration
+	pubsub: {
+		// setup redis connection
+		redis: {
+			host: 'localhost',
+			port: 6379,
 		},
+		// select which broker to use. allowed: 'redis', 'in-memory' (default)
+		broker: 'redis'
+		
+		// directory containing the handler files
+		handlerDir: path.join(__dirname, './handlers'),
 	},
 }));
 
+// start service
+await atrix.services.pubsub.start();
+
+// publish message
+await atrix.services.pubsub.publish('my/fancy/topic', { an: 'event', with: { da: 'ta' } });
 ```
