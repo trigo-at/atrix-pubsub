@@ -22,24 +22,25 @@
   },
   "homepage": "https://github.com/trigo-at/atrix-pubsub#readme",
   "devDependencies": {
-    "@trigo/atrix": "^0.5.2",
+    "@trigo/atrix": "^0.5.4",
     "@trigo/eslint-config-trigo": "^3.2.0",
     "chai": "^3.5.0",
-    "eslint": "^3.15.0",
-    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-mocha": "^4.8.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "prettier-eslint-cli": "^3.1.2",
     "supertest": "^3.0.0"
   },
   "dependencies": {
     "ascoltatori": "^4.0.0",
     "async-retry": "^0.3.0",
-    "bluebird": "^3.4.7",
+    "bluebird": "^3.5.0",
+    "ioredis": "^2.5.0",
     "joi": "^10.2.2",
     "ramda": "^0.23.0",
-    "redis": "^2.6.5",
     "uuid": "^3.0.1"
   }
 }

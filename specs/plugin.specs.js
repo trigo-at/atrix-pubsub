@@ -3,10 +3,9 @@
 /* eslint-env node, mocha */
 /* eslint no-unused-expressions: 0, arrow-body-style: 0 */
 
-const { expect } = require('chai');
-const Redis = require('ioredis');
 require('./service');
 const atrix = require('@trigo/atrix');
+const { expect } = require('chai');
 
 describe('loads datasources into service', () => {
 	beforeEach(async () => {
@@ -18,4 +17,7 @@ describe('loads datasources into service', () => {
 		}
 	});
 
+	it('attatches the publish method on the service object', () => {
+		expect(atrix.services.pubsub.publish).to.be.a('function');
+	});
 });
