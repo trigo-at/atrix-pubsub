@@ -7,7 +7,7 @@
   "description": "Pubsub intigration into atrix microservice framework",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --timeout 30000 --trace-warnings $(find . -name '*.specs.js' -not -path './node_modules/*')",
+    "test": "NODE_ENV=test mocha --timeout 30000 --harmony-async-await --trace-warnings $(find . -name '*.specs.js' -not -path './node_modules/*')",
     "lint": "eslint lib specs",
     "yarn": "yarn install"
   },
