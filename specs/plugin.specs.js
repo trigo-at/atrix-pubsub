@@ -7,7 +7,7 @@ require('./service');
 const atrix = require('@trigo/atrix');
 const { expect } = require('chai');
 
-describe('loads datasources into service', () => {
+describe.skip('loads datasources into service', () => {
 	beforeEach(async () => {
 		try {
 			await atrix.services.pubsub.start();
