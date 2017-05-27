@@ -24,7 +24,7 @@
   "devDependencies": {
     "@trigo/atrix": "^0.8.1",
     "@trigo/eslint-config-trigo": "^3.3.0",
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-import": "^2.2.0",
