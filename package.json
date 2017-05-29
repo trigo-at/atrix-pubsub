@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "ascoltatori": "^4.1.0",
-    "async-retry": "^0.3.0",
+    "async-retry": "^1.0.0",
     "avsc": "^5.0.0",
     "bluebird": "^3.5.0",
     "ioredis": "^2.5.0",
