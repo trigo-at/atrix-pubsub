@@ -35,6 +35,7 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "amqplib": "^0.5.1",
     "ascoltatori": "^4.1.0",
     "async-retry": "^0.3.0",
     "avsc": "^5.0.0",
