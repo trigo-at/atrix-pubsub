@@ -1,6 +1,6 @@
 {
   "name": "@trigo/atrix-pubsub",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "engines": {
     "node": ">=8.1.0"
   },
