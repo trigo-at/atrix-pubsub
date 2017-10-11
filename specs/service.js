@@ -5,8 +5,18 @@ const path = require('path');
 
 atrix.configure({ pluginMap: { pubsub: path.join(__dirname, '../') } });
 
-atrix.addService(new atrix.Service('pubsub', {
+
+const service = new atrix.Service('pubsub', {
+	endpoints: {
+		http: {
+			handlerDir: path.join(__dirname, '../specs/http-handlers'),
+		},
+	},
 	pubsub: {
 		handlerDir: path.join(__dirname, '../specs/handlers'),
 	},
-}));
+});
+
+atrix.addService(service);
+
+service.endpoints.add('http');
