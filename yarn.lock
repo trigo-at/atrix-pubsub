@@ -3,8 +3,8 @@
 
 
 "@trigo/atrix@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@trigo/atrix/-/atrix-1.2.0.tgz#956c91a1f1ef353f4abe88a480da53ff7e96b3db"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@trigo/atrix/-/atrix-1.2.1.tgz#ceec13f995240698a9e149849c65a2f7229aa9c3"
   dependencies:
     "@trigo/hapi-auth-signedlink" "^0.1.0"
     blipp "^2.3.0"
