@@ -4,7 +4,7 @@
 # atrix-pubsub
 
 
-**Acoltatori based Pub/Sub intigraition into atrix microservice framework**
+**Ascoltatori based Pub/Sub integration into atrix microservice framework**
 
 ## Features
 
@@ -24,21 +24,21 @@ npm install -S @trigo/atrix-pubsub
 
 ## Configuration
 
-### handlers/my/facncy^*.js
+### handlers/my/fancy^*.js
 ```
 const Joi = require('joi');
 
 module.exports.descrioption = 'my fancy event handler'
 module.exports.schema = joi.object({ ... });
 module.exports.handler = async (req, reply, service) => {
-	console.log(req) 
-	// { 
-	//	path: 'my/fanzy/event', 
-	//	payload: { an: 'event', with: { da: 'ta' } }
-	// 	log: {<logger object>} 
+	console.log(req)
+	// {
+	//	path: 'my/fancy/event',
+	//	payload: { an: 'event', with: { foo: 'bar' } }
+	// 	log: {<logger object>}
 	// }
-	
-	// publish anohter message
+
+	// publish another message
 	await service.publish('other/event', { ... });
 }
 ```
@@ -59,8 +59,9 @@ atrix.addService(new atrix.Service('pubsub', {
 			port: 6379,
 		},
 		// select which broker to use. allowed: 'redis', 'in-memory' (default)
-		broker: 'redis'
-		
+		broker: 'redis',
+		brokerWildcard: '*', // topic path wildcard. allowed : '*', '%' (default and advised)
+
 		// directory containing the handler files
 		handlerDir: path.join(__dirname, './handlers'),
 	},
@@ -70,5 +71,5 @@ atrix.addService(new atrix.Service('pubsub', {
 await atrix.services.pubsub.start();
 
 // publish message
-await atrix.services.pubsub.publish('my/fancy/topic', { an: 'event', with: { da: 'ta' } });
+await atrix.services.pubsub.publish('my/fancy/topic', { an: 'event', with: { foo: 'bar' } });
 ```
