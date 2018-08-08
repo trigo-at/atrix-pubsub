@@ -20,6 +20,9 @@ describe('request event buffrer', () => {
 			},
 			pubsub: {
 				handlerDir: path.join(__dirname, '../specs/handlers'),
+				requestEventBuffer: {
+					enabled: true,
+				},
 			},
 		});
 
@@ -29,11 +32,12 @@ describe('request event buffrer', () => {
 		svc = atrix.services.buffered;
 
 		svc.handlers.add('PATCH', '/patch', async (req, reply, service) => {
-			reply.withEvent({ foo: 'bar' });
+			reply.withEvent({ foo: 'bar', resId: req.payload.resId });
 		});
 		svc.handlers.add('POST', '/post', async (req, reply, service) => {
-			await service.request({ method: 'patch', url: '/patch' });
-			await service.request({ method: 'patch', url: '/patch' });
+			await service.request({ method: 'patch', url: '/patch', payload: { resId: '42' } }, req);
+			await service.request({ method: 'patch', url: '/patch', payload: { resId: '42' } }, req);
+			await service.request({ method: 'patch', url: '/patch', payload: { resId: '43' } }, req);
 
 			reply.withEvent({ foo: 'bar' });
 		});
@@ -55,9 +59,25 @@ describe('request event buffrer', () => {
 		await svc.subscribe('buffered.svc/%', (...args) => {
 			const [topic, data] = args;
 			console.log(topic, data);
+			events.push({ topic, data });
 		});
 		const res = await test.post('/post');
 		await bb.delay(20);
+		expect(events.find(e => e.topic === 'buffered.svc/patch/patch.ok')).to.exist;
+		expect(events.find(e => e.topic === 'buffered.svc/post/post.ok')).to.exist;
+	});
+
+	it.only('aggregates events of same topic with same payload.resId', async () => {
+		const events = [];
+		await svc.subscribe('buffered.svc/%', (...args) => {
+			const [topic, data] = args;
+			console.log(topic, data);
+			events.push({ topic, data });
+		});
+		const res = await test.post('/post');
+		await bb.delay(20);
+		expect(events.filter(e => e.topic === 'buffered.svc/patch/patch.ok' && e.data.payload.resId === '42').length).to.eql(1);
+		expect(events.filter(e => e.topic === 'buffered.svc/patch/patch.ok' && e.data.payload.resId === '43').length).to.eql(1);
 	});
 	// it('t2', () => {});
 });

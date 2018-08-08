@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@trigo/atrix@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@trigo/atrix/-/atrix-4.0.0.tgz#758dae4ab5cfc5e75c0f9ada9091c6e4c050a8f9"
+"@trigo/atrix@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@trigo/atrix/-/atrix-4.1.0.tgz#81b0f0d54815a61f01637c6b192ddc899f2648a4"
   dependencies:
     "@trigo/hapi-auth-signedlink" "^0.1.0"
     axios "^0.18.0"
