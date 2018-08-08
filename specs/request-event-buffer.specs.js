@@ -8,6 +8,8 @@ const path = require('path');
 const supertest = require('supertest');
 const { expect } = require('chai');
 const bb = require('bluebird');
+const eventBuffer = require('../lib/event-buffer');
+const Boom = require('boom');
 
 describe('request event buffrer', () => {
 	let svc, test;
@@ -31,7 +33,7 @@ describe('request event buffrer', () => {
 
 		svc = atrix.services.buffered;
 
-		svc.handlers.add('PATCH', '/patch', async (req, reply, service) => {
+		svc.handlers.add('PATCH', '/patch', async (req, reply) => {
 			reply.withEvent({ foo: 'bar', resId: req.payload.resId });
 		});
 		svc.handlers.add('POST', '/post', async (req, reply, service) => {
@@ -41,9 +43,15 @@ describe('request event buffrer', () => {
 
 			reply.withEvent({ foo: 'bar' });
 		});
+		svc.handlers.add('POST', '/post-with-error', async (req, reply, service) => {
+			await service.request({ method: 'patch', url: '/patch', payload: { resId: '42' } }, req);
+			await service.request({ method: 'patch', url: '/patch', payload: { resId: '42' } }, req);
+			await service.request({ method: 'patch', url: '/patch', payload: { resId: '43' } }, req);
+
+			throw Boom.internal();
+		});
 
 		await svc.start();
-		console.log(svc.endpoints.endpoints[0].instance.server.connections[0].info.port);
 		test = supertest(`http://localhost:${svc.endpoints.endpoints[0].instance.server.connections[0].info.port}`);
 		const aliveRes = await test.get('/alive');
 		expect(aliveRes.statusCode).to.equal(200);
@@ -54,30 +62,47 @@ describe('request event buffrer', () => {
 		await svc.stop();
 	});
 
-	it.only('sends events', async () => {
+	it('sends events', async () => {
 		const events = [];
 		await svc.subscribe('buffered.svc/%', (...args) => {
 			const [topic, data] = args;
-			console.log(topic, data);
 			events.push({ topic, data });
 		});
-		const res = await test.post('/post');
+		await test.post('/post');
 		await bb.delay(20);
 		expect(events.find(e => e.topic === 'buffered.svc/patch/patch.ok')).to.exist;
 		expect(events.find(e => e.topic === 'buffered.svc/post/post.ok')).to.exist;
 	});
 
-	it.only('aggregates events of same topic with same payload.resId', async () => {
+	it('aggregates events of same topic with same payload.resId', async () => {
 		const events = [];
 		await svc.subscribe('buffered.svc/%', (...args) => {
 			const [topic, data] = args;
-			console.log(topic, data);
 			events.push({ topic, data });
 		});
-		const res = await test.post('/post');
+		await test.post('/post');
+		await bb.delay(20);
+		expect(events.find(e => e.topic === 'buffered.svc/post/post.ok')).to.exist;
+		expect(events.filter(e => e.topic === 'buffered.svc/patch/patch.ok' && e.data.payload.resId === '42').length).to.eql(1);
+		expect(events.filter(e => e.topic === 'buffered.svc/patch/patch.ok' && e.data.payload.resId === '43').length).to.eql(1);
+	});
+
+	it('deletes REQ_CACHE afgter fireing events', async () => {
+		await test.post('/post');
+		await bb.delay(20);
+		expect(eventBuffer.REQ_CACHE).to.eql({});
+	});
+
+	it('also sends events when errors are thrown', async () => {
+		const events = [];
+		await svc.subscribe('buffered.svc/%', (...args) => {
+			const [topic, data] = args;
+			events.push({ topic, data });
+		});
+		const res = await test.post('/post-with-error');
+		expect(res.statusCode).to.eql(500);
 		await bb.delay(20);
 		expect(events.filter(e => e.topic === 'buffered.svc/patch/patch.ok' && e.data.payload.resId === '42').length).to.eql(1);
 		expect(events.filter(e => e.topic === 'buffered.svc/patch/patch.ok' && e.data.payload.resId === '43').length).to.eql(1);
 	});
-	// it('t2', () => {});
 });
