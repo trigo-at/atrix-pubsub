@@ -4,7 +4,12 @@
 # atrix-pubsub
 
 
-**Ascoltatori based Pub/Sub integration into atrix microservice framework**
+** Redis based Pub/Sub integration into atrix microservice framework**
+
+## Compatibility
+
+`atrix-pubsub < 4.0.0` works with `atrix < 6.0.0`
+`atrix-pubsub >= 4.0.0` works with `atrix >= 6.0.0`
 
 ## Features
 
@@ -50,7 +55,9 @@ module.exports.handler = async (req, reply, service) => {
 const atrix = require('@trigo/atrix');
 const path = require('path');
 
-atrix.addService(new atrix.Service('pubsub', {
+atrix.addService({
+	// name of the service
+	name: 'pubsub', 
 	// plugin configuration
 	pubsub: {
 		// setup redis connection
@@ -65,7 +72,7 @@ atrix.addService(new atrix.Service('pubsub', {
 		// directory containing the handler files
 		handlerDir: path.join(__dirname, './handlers'),
 	},
-}));
+});
 
 // start service
 await atrix.services.pubsub.start();

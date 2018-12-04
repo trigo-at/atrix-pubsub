@@ -14,7 +14,8 @@ const Boom = require('boom');
 describe('request event buffrer', () => {
 	let svc, test;
 	beforeEach(async () => {
-		const buffered = new atrix.Service('buffered', {
+		atrix.addService({
+			name: 'buffered',
 			endpoints: {
 				http: {
 					// handlerDir: path.join(__dirname, '../specs/http-handlers'),
@@ -27,9 +28,6 @@ describe('request event buffrer', () => {
 				},
 			},
 		});
-
-		buffered.endpoints.add('http');
-		atrix.addService(buffered);
 
 		svc = atrix.services.buffered;
 
