@@ -23,6 +23,9 @@ build: .
 lint:
 	yarn lint
 
+pretty:
+	yarn prettify
+
 ci-lint: build
 	@docker-compose -f docker-compose.test.yml run --rm $(PACKAGE) yarn lint; \
 		test_exit=$$?; \
