@@ -3,10 +3,10 @@ PACKAGE=$(shell cat package.json | jq ".name" | sed 's/@trigo\///')
 REPO_VERSION:=$(shell cat package.json| jq .version)
 
 info:
-	@echo "=====> Info"
+	@echo "=====> NPM Info"
 	@echo "Package:               $(PACKAGE)"
 	@echo "Version:               ${REPO_VERSION}"
-	@echo "Published:             $$(npm show @trigo/$(PACKAGE) version)"
+	@echo "Published:             $$(npm show --json @trigo/$(PACKAGE) | jq -r ".versions | join(\", \")")"
 
 install:
 	yarn install
@@ -41,14 +41,13 @@ ci-test: build
 
 publish: build
 	@docker-compose -f docker-compose.test.yml run --rm $(PACKAGE) \
-	   	/bin/bash -c 'if [ "$(REPO_VERSION)" != $$(npm show @trigo/$(PACKAGE) version) ]; then \
-			npm publish; \
-		else \
+	   	/bin/bash -c 'if [[ $$(npm show --json @trigo/$(PACKAGE) versions) =~ "'$(REPO_VERSION)'" ]]; then \
 			echo "Version unchanged, no need to publish"; \
+		else \
+			npm publish; \
 		fi'; EXIT_CODE=$$?; \
 		docker-compose -f docker-compose.test.yml down; \
 		exit $$EXIT_CODE
-
 
 dev-inf-up:
 	docker-compose -f docker-compose.dev-inf.yml up -d
