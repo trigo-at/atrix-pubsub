@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/trigo-at/atrix-pubsub#readme",
   "devDependencies": {
-    "@trigo/atrix": "^6.0.0-7",
+    "@trigo/atrix": "^6.0.0-11",
     "boom": "^7.2.0",
     "chai": "^4.2.0",
     "eslint": "^5.9.0",
@@ -50,12 +50,12 @@
     "avsc": "^5.0.5",
     "bluebird": "^3.5.3",
     "ioredis": "^3.1.4",
-    "joi": "^10.4.1",
+    "joi": "^14.3.0",
     "mqemitter": "^2.2.0",
     "mqemitter-redis": "^2.2.0",
     "promise-retry": "^1.1.1",
-    "ramda": "^0.24.1",
-    "shot": "^3.4.2",
+    "ramda": "^0.26.1",
+    "shot": "^4.0.7",
     "uuid": "^3.0.1"
   }
 }

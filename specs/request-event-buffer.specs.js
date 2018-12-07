@@ -51,7 +51,7 @@ describe('request event buffrer', () => {
         });
 
         await svc.start();
-        test = supertest(`http://localhost:${svc.endpoints.endpoints[0].instance.server.connections[0].info.port}`);
+        test = supertest(`http://localhost:${svc.endpoints.endpoints[0].instance.server.settings.port}`);
         const aliveRes = await test.get('/alive');
         expect(aliveRes.statusCode).to.equal(200);
     });
@@ -67,7 +67,7 @@ describe('request event buffrer', () => {
             events.push({topic, data});
         });
         await test.post('/post');
-        await bb.delay(20);
+        await bb.delay(200);
         expect(events.find(e => e.topic === 'buffered.svc/patch/patch.ok')).to.exist;
         expect(events.find(e => e.topic === 'buffered.svc/post/post.ok')).to.exist;
     });
