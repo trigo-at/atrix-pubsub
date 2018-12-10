@@ -39,10 +39,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@trigo/atrix@^6.0.0-11":
-  version "6.0.0-11"
-  resolved "https://registry.yarnpkg.com/@trigo/atrix/-/atrix-6.0.0-11.tgz#354959ae546f55be2a28be0bd00885e3203ece76"
-  integrity sha512-0HQJzbus1g4BKWO/OhtuJ3QdHneURdRHht8fQiQc515NaFWPZpM8gpNKRFBRcj8Ma+gzJLyZ0YglhQJbvo5JiQ==
+"@trigo/atrix@^6.0.0-12":
+  version "6.0.0-12"
+  resolved "https://registry.yarnpkg.com/@trigo/atrix/-/atrix-6.0.0-12.tgz#5b9d173cf7a98d4a3aa2cb20c67b7ca11a1baf28"
+  integrity sha512-qUvcfvhtMWom83DZP96UJO2XCY6p/foX8UZKci91SogWsqxuzmsZDqOTCrdjGOckS6jNGAEsMbViaTzx0zQm4w==
   dependencies:
     "@trigo/hapi-auth-signedlink" "^1.0.0-0"
     axios "^0.18.0"

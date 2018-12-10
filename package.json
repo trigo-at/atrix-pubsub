@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/trigo-at/atrix-pubsub#readme",
   "devDependencies": {
-    "@trigo/atrix": "^6.0.0-11",
+    "@trigo/atrix": "^6.0.0-12",
     "boom": "^7.2.0",
     "chai": "^4.2.0",
     "eslint": "^5.9.0",
