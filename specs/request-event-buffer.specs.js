@@ -9,17 +9,20 @@ const supertest = require('supertest');
 const {expect} = require('chai');
 const bb = require('bluebird');
 const Boom = require('boom');
+const Chance = require('chance');
 
+const chance = new Chance();
 const eventBuffer = require('../lib/event-buffer');
 
 describe('request event buffrer', () => {
     let svc, test;
     beforeEach(async () => {
+        const port = chance.integer({min: 20000, max: 30000});
         atrix.addService({
             name: 'buffered',
             endpoints: {
                 http: {
-                    // handlerDir: path.join(__dirname, '../specs/http-handlers'),
+                    port,
                 },
             },
             pubsub: {
@@ -51,7 +54,7 @@ describe('request event buffrer', () => {
         });
 
         await svc.start();
-        test = supertest(`http://localhost:${svc.endpoints.endpoints[0].instance.server.settings.port}`);
+        test = supertest(`http://localhost:${port}`);
         const aliveRes = await test.get('/alive');
         expect(aliveRes.statusCode).to.equal(200);
     });

@@ -6,7 +6,7 @@ module.exports.executed = false;
 module.exports.description = 'test handler';
 
 module.exports.handler = async (req, reply, service) => {
-    await bb.delay(30);
+    await bb.delay(3);
     module.exports.reply = reply;
     module.exports.service = service;
     module.exports.req = req;
